@@ -1,6 +1,6 @@
-# Project Name
+# REACT SIMPLE CALCULATOR
 
-> One paragraph statement about the project.
+> A React Simple Calculator is a Coursera built-in Project to test React knowledge
 
 ![screenshot](./app_screenshot.png)
 
@@ -8,20 +8,17 @@
 
 - Vite
 - TailwindCSS
-- Major languages,
-- frameworks,
-- technologies used
 
 ## Live Demo
 
-[Live Demo Link](https://js-react-template.netlify.app/)
+[Live Demo Link](https://react-simple-calculator.netlify.app/)
 
 ### Development (Running locally)
 
 - Clone the project
 
 ```bash
-git clone https://github.com/moshoodabdullahi/js-react-template.git
+git clone https://github.com/moshoodabdullahi/react-simple-calculator.git
 
 ```
 
