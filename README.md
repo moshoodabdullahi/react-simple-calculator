@@ -11,7 +11,7 @@
 
 ## Live Demo
 
-[Live Demo Link](https://react-simple-calculator.netlify.app/)
+[Live Demo Link](https://react-simple-calculator9.netlify.app/)
 
 ### Development (Running locally)
 
