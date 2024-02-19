@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import './Style.css';
 
 const styles = {
-  color: 'black',
+  color: '#000',
   fontSize: '30px',
   fontWeight: 'bold',
 };
@@ -71,7 +71,7 @@ function App() {
         <input
           id="numberInput"
           style={{
-            border: '2px solid black',
+            border: '2px solid #000',
             borderRadius: '6px',
           }}
           pattern="[0-9]"
@@ -85,8 +85,8 @@ function App() {
         <button onClick={divide}>divide</button>
         <button
           style={{
-            background: 'rgb(223, 49, 19)',
-            color: 'rgb(255, 255, 255)',
+            background: 'rgb(223 49 19)',
+            color: 'rgb(255 255 255)',
           }}
           onClick={resetInput}
         >
@@ -94,8 +94,8 @@ function App() {
         </button>
         <button
           style={{
-            background: 'rgb(223, 49, 19)',
-            color: 'rgb(255, 255, 255)',
+            background: 'rgb(223 49 19)',
+            color: 'rgb(255 255 255)',
           }}
           onClick={resetResult}
         >
