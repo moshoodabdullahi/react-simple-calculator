@@ -67,13 +67,17 @@ function App() {
         >
           {result}
         </p>
+        <label htmlFor="numberInput">Enter a number:</label>
         <input
+          id="numberInput"
           style={{
             border: '2px solid black',
             borderRadius: '6px',
           }}
           pattern="[0-9]"
           ref={inputRef}
+          aria-label="Number Input"
+          title="Please enter a number"
         />
         <button onClick={plus}>add</button>
         <button onClick={minus}>subtract</button>
