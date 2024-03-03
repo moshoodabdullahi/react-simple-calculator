@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { AxePuppeteer } from 'axe-puppeteer';
-import puppeteer from  'puppeteer';
+import puppeteer from 'puppeteer';
 import { execSync, spawn } from 'child_process';
 import fs from 'fs';
 
-const PORT = 8080
+const PORT = 8080;
 let report = '';
 
 async function buildAndServe() {
@@ -14,7 +14,7 @@ async function buildAndServe() {
     execSync('yarn build', { stdio: 'inherit' });
     console.info('Build successful.');
   } catch (error) {
-    console.error(error)
+    console.error(error);
     report = 'Build failed.';
     console.error('Build failed.');
     process.exitCode = 1; // Set exit code to indicate failure
@@ -23,49 +23,47 @@ async function buildAndServe() {
 
   console.info('Previewing the project...');
   // Execute the preview command (e.g., yarn preview)
-  const serveProcess = spawn('yarn', ['preview'], {shell: true});
+  const serveProcess = spawn('yarn', ['preview'], { shell: true });
 
-   // Capture the output of the preview process
-   let serveOutput = '';
-   serveProcess.stdout.on('data', (data) => {
-     serveOutput += data.toString();
-   });
+  // Capture the output of the preview process
+  let serveOutput = '';
+  serveProcess.stdout.on('data', (data) => {
+    serveOutput += data.toString();
+  });
 
-   let serveErrorOutput = ''
-   serveProcess.stderr.on('data', (data) => {
+  let serveErrorOutput = '';
+  serveProcess.stderr.on('data', (data) => {
     serveErrorOutput += data.toString();
   });
-  
-
 
   // Wait for a brief moment to ensure the server is up and running
-  await new Promise(resolve => setTimeout(resolve, 2000));
-  const serveExitCode =  serveProcess.exitCode
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  const serveExitCode = serveProcess.exitCode;
 
-    console.log({ serveExitCode })
+  console.log({ serveExitCode });
 
-    if(serveExitCode){
-      console.error(`Error: yarn preview process exited with code ${serveExitCode}`);
-      if(serveOutput){
-        console.debug(`Serve process output:\n${serveOutput}`);
-      }
-  
-      if(serveErrorOutput){
-        console.error(`Serve process error:\n${serveErrorOutput}`);
-      }
-      process.exitCode = serveExitCode; // Set exit code to indicate failure
-      return;
-    } else {
-      console.debug("Preview done!")
-    }
-
-    if(serveOutput){
+  if (serveExitCode) {
+    console.error(`Error: yarn preview process exited with code ${serveExitCode}`);
+    if (serveOutput) {
       console.debug(`Serve process output:\n${serveOutput}`);
     }
 
-    if(serveErrorOutput){
+    if (serveErrorOutput) {
       console.error(`Serve process error:\n${serveErrorOutput}`);
     }
+    process.exitCode = serveExitCode; // Set exit code to indicate failure
+    return;
+  } else {
+    console.debug('Preview done!');
+  }
+
+  if (serveOutput) {
+    console.debug(`Serve process output:\n${serveOutput}`);
+  }
+
+  if (serveErrorOutput) {
+    console.error(`Serve process error:\n${serveErrorOutput}`);
+  }
 
   // Run the accessibility check
   await runAccessibilityCheck();
@@ -75,15 +73,15 @@ async function buildAndServe() {
 }
 
 async function runAccessibilityCheck() {
-  console.debug("Lauching webpage")
+  console.debug('Lauching webpage');
   const browser = await puppeteer.launch({ headless: 'new' });
   const page = await browser.newPage();
 
   const localhostUrl = `http://localhost:${PORT}`;
-  console.debug("Opening webpage")
+  console.debug('Opening webpage');
   await page.goto(localhostUrl);
 
-  console.debug("Analyzing webpage!")
+  console.debug('Analyzing webpage!');
   const results = await new AxePuppeteer(page).analyze();
   await browser.close();
 
@@ -129,4 +127,4 @@ await buildAndServe();
 
 fs.writeFileSync('accessibility_report.md', report, 'utf8');
 console.info('Accessibility report generated.');
-process.exit()
+process.exit();
